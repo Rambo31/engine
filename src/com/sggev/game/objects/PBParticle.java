@@ -9,7 +9,6 @@ import com.sggev.game.components.Component;
 
 public class PBParticle extends GameObject {
 	//private double lastPosY, lastPosX;
-	private double deltaPosX, deltaPosY;
 	private double accelerationX, accelerationY;
 	private double wallBounce = 4;
 	
@@ -73,14 +72,6 @@ public class PBParticle extends GameObject {
 		
 	}
 	
-	public void push(double deltaX, double deltaY)
-	{
-		posX += deltaX;
-		posY += deltaY;
-		
-		deltaPosX += deltaX;
-		deltaPosY += deltaY;
-	}
 	
 	
 	@Override
@@ -185,6 +176,7 @@ public class PBParticle extends GameObject {
 			}
 			
 		}
+
 		
 		
 		
@@ -205,33 +197,6 @@ public class PBParticle extends GameObject {
 		this.radius = radius;
 	}
 
-
-
-
-	public double getDeltaPosX() {
-		return deltaPosX;
-	}
-
-
-
-
-	public void setDeltaPosX(double deltaPosX) {
-		this.deltaPosX = deltaPosX;
-	}
-
-
-
-
-	public double getDeltaPosY() {
-		return deltaPosY;
-	}
-
-
-
-
-	public void setDeltaPosY(double deltaPosY) {
-		this.deltaPosY = deltaPosY;
-	}
 
 
 

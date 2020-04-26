@@ -1,5 +1,6 @@
 package com.sggev.game;
 
+import com.sggev.game.objects.GameObject;
 import com.sggev.game.objects.PBParticle;
 
 public class PLink {
@@ -8,11 +9,11 @@ public class PLink {
 	private double stiffness;
 	
 	
-	private PBParticle p1;
-	private PBParticle p2;
+	private GameObject p1;
+	private GameObject p2;
 	
 	
-	public PLink(PBParticle p1, PBParticle p2, double defLen, double stiffness)
+	public PLink(GameObject p1, GameObject p2, double defLen, double stiffness)
 	{
 		this.p1 = p1;
 		this.p2 = p2;

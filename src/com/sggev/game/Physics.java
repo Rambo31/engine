@@ -366,10 +366,6 @@ public class Physics {
 						
 					}
 					
-						
-					
-					
-					
 				}
 			}
 		}

@@ -11,6 +11,7 @@ public abstract class GameObject {
 
 	protected String tag;
 	protected double posX, posY;
+	protected double deltaPosX, deltaPosY;
 	protected int width, height;
 	protected int radius;
 	protected int padding, paddingTop;
@@ -75,6 +76,15 @@ public abstract class GameObject {
 		return null;
 	}
 	
+	public void push(double deltaX, double deltaY)
+	{
+		posX += deltaX;
+		posY += deltaY;
+		
+		deltaPosX += deltaX;
+		deltaPosY += deltaY;
+	}
+	
 	public String getTag() {
 		return tag;
 	}
@@ -128,5 +138,17 @@ public abstract class GameObject {
 	}
 	public void setRadius(int radius) {
 		this.radius = radius;
+	}
+	public double getDeltaPosX() {
+		return deltaPosX;
+	}
+	public void setDeltaPosX(double deltaPosX) {
+		this.deltaPosX = deltaPosX;
+	}
+	public double getDeltaPosY() {
+		return deltaPosY;
+	}
+	public void setDeltaPosY(double deltaPosY) {
+		this.deltaPosY = deltaPosY;
 	}
 }
