@@ -45,7 +45,7 @@ public class GameManager extends AbstractGame {
 	
 	
 	public GameManager() {
-		objects.add(new Player(4, 4, new AABBComponent()));
+		objects.add(new Player(4, 4, new AABBComponent(), ProjectileManager.ProjectileType.Bullet));
 		
 	
 		

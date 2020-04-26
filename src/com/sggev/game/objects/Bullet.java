@@ -13,7 +13,7 @@ public class Bullet extends GameObject {
 	
 	private int direction;
 	private float speed = 200f;
-	
+	//изменить конструктор под pos
 	public Bullet(int tileX, int tileY, float offX, float offY, int direction, Component c)
 	{
 		super(c);
@@ -26,6 +26,28 @@ public class Bullet extends GameObject {
 		
 		posX = tileX * GameManager.TS + offX;
 		posY = tileY * GameManager.TS + offY;
+		
+		this.padding = 0;
+		this.paddingTop = 0;
+		this.width = 4;
+		this.height = 4;
+	}
+	public Bullet(double posX, double posY, int direction, Component c)
+	{
+		super(c);
+		
+		this.posX = posX;
+		this.posY = posY;
+		
+		this.direction = direction;
+		this.tileX = (int) (posX / GameManager.TS);
+		this.tileY = (int) (posY / GameManager.TS);
+		
+		
+		this.offX = (float) (this.posX - this.tileX * GameManager.TS);
+		this.offY = (float) (this.posY - this.tileY * GameManager.TS);
+		
+
 		
 		this.padding = 0;
 		this.paddingTop = 0;
