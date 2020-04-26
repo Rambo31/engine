@@ -3,6 +3,7 @@ package com.sggev.game.objects;
 import com.sggev.engine.GameContainer;
 import com.sggev.engine.Renderer;
 import com.sggev.game.GameManager;
+import com.sggev.game.components.Component;
 
 public class Bullet extends GameObject {
 
@@ -13,8 +14,10 @@ public class Bullet extends GameObject {
 	private int direction;
 	private float speed = 200f;
 	
-	public Bullet(int tileX, int tileY, float offX, float offY, int direction)
+	public Bullet(int tileX, int tileY, float offX, float offY, int direction, Component c)
 	{
+		super(c);
+		
 		this.direction = direction;
 		this.tileX = tileX;
 		this.tileY = tileY;

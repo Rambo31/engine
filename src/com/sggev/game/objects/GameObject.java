@@ -22,6 +22,13 @@ public abstract class GameObject {
 	public abstract void render(GameContainer gc, Renderer r);
 	public abstract void collision(GameObject other);
 	
+	public GameObject(Component c)
+	{
+		c.setParent(this);
+		this.addComponent(c);
+	}
+	
+	
 	public void updateComponents(GameContainer gc, GameManager gm, float dt)
 	{
 		for(Component c: components)

@@ -7,6 +7,7 @@ import com.sggev.engine.Renderer;
 import com.sggev.engine.gfx.ImageTile;
 import com.sggev.game.GameManager;
 import com.sggev.game.components.AABBComponent;
+import com.sggev.game.components.Component;
 
 public class Player extends GameObject {
 
@@ -32,8 +33,10 @@ public class Player extends GameObject {
 	private boolean groundLast = false;
 	private boolean colliding = false;
 	
-	public Player(int posX, int posY)
+	public Player(int posX, int posY, Component c)
 	{
+		super(c);
+		
 		this.tag = "player";
 		this.tileX = posX;
 		this.tileY = posY;
@@ -48,7 +51,7 @@ public class Player extends GameObject {
 		this.paddingTop = 2;
 		
 		
-		this.addComponent(new AABBComponent(this));
+		//this.addComponent(new AABBComponent(this));
 	}
 	
 	@Override
@@ -169,19 +172,19 @@ public class Player extends GameObject {
 		//shooting
 		if(gc.getInput().isKeyDown(KeyEvent.VK_UP))
 		{
-			gm.addObject(new Bullet(tileX, tileY, offX + width / 2, offY + height / 2, 0));
+			gm.addObject(new Bullet(tileX, tileY, offX + width / 2, offY + height / 2, 0, new AABBComponent()));
 		}
 		if(gc.getInput().isKeyDown(KeyEvent.VK_RIGHT))
 		{
-			gm.addObject(new Bullet(tileX, tileY, offX + width / 2, offY + height / 2, 1));
+			gm.addObject(new Bullet(tileX, tileY, offX + width / 2, offY + height / 2, 1, new AABBComponent()));
 		}
 		if(gc.getInput().isKeyDown(KeyEvent.VK_DOWN))
 		{
-			gm.addObject(new Bullet(tileX, tileY, offX + width / 2, offY + height / 2,  2));
+			gm.addObject(new Bullet(tileX, tileY, offX + width / 2, offY + height / 2,  2, new AABBComponent()));
 		}
 		if(gc.getInput().isKeyDown(KeyEvent.VK_LEFT))
 		{
-			gm.addObject(new Bullet(tileX, tileY, offX + width / 2, offY + height / 2, 3));
+			gm.addObject(new Bullet(tileX, tileY, offX + width / 2, offY + height / 2, 3, new AABBComponent()));
 		}
 		
 		

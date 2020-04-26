@@ -9,15 +9,13 @@ import com.sggev.game.objects.GameObject;
 public class CircleComponent extends Component{
 
 	
-	private GameObject parent;
 	private double posY, posX;
 	private double lastPosY, lastPosX;
 	private double radius;
 	
 	
-	public CircleComponent(GameObject parent)
+	public CircleComponent()
 	{
-		this.parent = parent;
 		this.tag = "circle";
 	}
 	
@@ -43,13 +41,6 @@ public class CircleComponent extends Component{
 		//тут можно нарисовать форму но это теряет смысл когда мы ресуем полную форму в GameObject
 	}
 
-	public GameObject getParent() {
-		return parent;
-	}
-
-	public void setParent(GameObject parent) {
-		this.parent = parent;
-	}
 
 	public double getPosY() {
 		return posY;

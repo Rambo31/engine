@@ -10,6 +10,8 @@ import com.sggev.engine.audio.SoundClip;
 import com.sggev.engine.gfx.Image;
 import com.sggev.engine.gfx.ImageTile;
 import com.sggev.engine.gfx.Light;
+import com.sggev.game.components.AABBComponent;
+import com.sggev.game.components.CircleComponent;
 import com.sggev.game.objects.GameObject;
 import com.sggev.game.objects.PBParticle;
 import com.sggev.game.objects.Platform;
@@ -43,8 +45,11 @@ public class GameManager extends AbstractGame {
 	
 	
 	public GameManager() {
-		objects.add(new Player(4, 4));
-		objects.add(new Platform());
+		objects.add(new Player(4, 4, new AABBComponent()));
+		
+	
+		
+		objects.add(new Platform(new AABBComponent()));
 		
 		loadLevel("/levelImage2_0.png");
 		
@@ -69,7 +74,7 @@ public class GameManager extends AbstractGame {
 			
 			p2 = p1; 
 			
-			p1 = new PBParticle( (float)((4 + i % colNum) * TS),(float) ((4 + i / colNum) * TS), (float)(Math.random()*5), (float)(Math.random()*5),  1);
+			p1 = new PBParticle( (float)((4 + i % colNum) * TS),(float) ((4 + i / colNum) * TS), (float)(Math.random()*5), (float)(Math.random()*5),  1, new CircleComponent());
 			
 			
 			//связи диагональ левый верхний - правый нижний

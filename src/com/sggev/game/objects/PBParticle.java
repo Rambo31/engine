@@ -5,6 +5,7 @@ import com.sggev.engine.Renderer;
 import com.sggev.game.GameManager;
 import com.sggev.game.components.AABBComponent;
 import com.sggev.game.components.CircleComponent;
+import com.sggev.game.components.Component;
 
 public class PBParticle extends GameObject {
 	//private double lastPosY, lastPosX;
@@ -12,8 +13,9 @@ public class PBParticle extends GameObject {
 	private double accelerationX, accelerationY;
 	private double wallBounce = 4;
 	
-	public PBParticle(float startPosX, float startPosY, float accelerationX, float accelerationY, int radius)
+	public PBParticle(float startPosX, float startPosY, float accelerationX, float accelerationY, int radius, Component c)
 	{
+		super(c);
 		//инициализировать все что нужно для компонента
 		
 		this.tag = "pbparticle";
@@ -39,7 +41,7 @@ public class PBParticle extends GameObject {
 		
 		
 		//TODO: aabb component
-		this.addComponent(new CircleComponent(this));
+		//this.addComponent(new CircleComponent(this));
 	}
 	
 	

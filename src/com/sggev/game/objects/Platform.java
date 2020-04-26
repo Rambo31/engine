@@ -4,14 +4,17 @@ import com.sggev.engine.GameContainer;
 import com.sggev.engine.Renderer;
 import com.sggev.game.GameManager;
 import com.sggev.game.components.AABBComponent;
+import com.sggev.game.components.Component;
 
 public class Platform extends GameObject {
 
 	
 	private int color = (int) (Math.random() * Integer.MAX_VALUE);
 	
-	public Platform()
+	public Platform(Component c)
 	{
+		super(c);
+		
 		this.tag = "platform";
 		this.width = 130;
 		this.height = 32;
@@ -21,7 +24,7 @@ public class Platform extends GameObject {
 		this.posX = 160;
 		this.posY = 144;
 		
-		this.addComponent(new AABBComponent(this));
+		//this.addComponent(new AABBComponent(this));
 	}
 	
 

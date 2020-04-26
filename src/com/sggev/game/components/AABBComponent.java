@@ -9,15 +9,13 @@ import com.sggev.game.objects.GameObject;
 public class AABBComponent extends Component {
 
 	
-	private GameObject parent;
 	private int centerX, centerY;
 	private int halfWidth, halfHeight;
 	private int lastCenterX, lastCenterY;
 	
 	
-	public AABBComponent(GameObject parent)
+	public AABBComponent()
 	{
-		this.parent = parent;
 		this.tag = "aabb";
 	}
 	
@@ -76,13 +74,6 @@ public class AABBComponent extends Component {
 		this.halfHeight = halfHeight;
 	}
 
-	public GameObject getParent() {
-		return parent;
-	}
-
-	public void setParent(GameObject parent) {
-		this.parent = parent;
-	}
 
 	public int getLastCenterX() {
 		return lastCenterX;
