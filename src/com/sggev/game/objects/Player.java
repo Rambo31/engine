@@ -9,6 +9,7 @@ import com.sggev.game.GameManager;
 import com.sggev.game.ProjectileManager;
 import com.sggev.game.components.AABBComponent;
 import com.sggev.game.components.Component;
+import com.sggev.game.components.ComponentManager;
 
 public class Player extends GameObject {
 
@@ -34,11 +35,12 @@ public class Player extends GameObject {
 	private boolean groundLast = false;
 	private boolean colliding = false;
 	private ProjectileManager.ProjectileType projectile_type;
+	private ComponentManager.ComponentType projectile_comp_type;
 
 	
 	
 	
-	public Player(int posX, int posY, Component c, ProjectileManager.ProjectileType pt)
+	public Player(int posX, int posY, Component c, ProjectileManager.ProjectileType pt, ComponentManager.ComponentType pct)
 	{
 		super(c);
 		
@@ -55,6 +57,7 @@ public class Player extends GameObject {
 		this.padding = 4;
 		this.paddingTop = 2;
 		this.projectile_type = pt;
+		this.projectile_comp_type = pct;
 		
 		//this.addComponent(new AABBComponent(this));
 	}
@@ -114,8 +117,7 @@ public class Player extends GameObject {
 			if((gm.getCollision(tileX, tileY - 1) || gm.getCollision(tileX + (int)Math.signum((int) Math.abs(offX) > padding ? offX : 0), tileY - 1)) && offY < -paddingTop)
 			{
 				fallDistance = 0;	
-				offY = -paddingTop;
-				
+				offY = -paddingTop;	
 			}
 		}
 		if(fallDistance > 0)
@@ -177,23 +179,23 @@ public class Player extends GameObject {
 		//shooting
 		if(gc.getInput().isKeyDown(KeyEvent.VK_UP))
 		{
-			gm.addObject(ProjectileManager.getProjectile(this.projectile_type, posX, posY, 0, new AABBComponent()));
+			gm.addObject(ProjectileManager.getProjectile(this.projectile_type, posX, posY, 0, ComponentManager.getComponent(projectile_comp_type)));
 			
 			//gm.addObject(new Bullet(tileX, tileY, offX + width / 2, offY + height / 2, 0, new AABBComponent()));
 		}
 		if(gc.getInput().isKeyDown(KeyEvent.VK_RIGHT))
 		{
-			gm.addObject(ProjectileManager.getProjectile(this.projectile_type, posX, posY, 1, new AABBComponent()));
+			gm.addObject(ProjectileManager.getProjectile(this.projectile_type, posX, posY, 1, ComponentManager.getComponent(projectile_comp_type)));
 			//gm.addObject(new Bullet(tileX, tileY, offX + width / 2, offY + height / 2, 1, new AABBComponent()));
 		}
 		if(gc.getInput().isKeyDown(KeyEvent.VK_DOWN))
 		{
-			gm.addObject(ProjectileManager.getProjectile(this.projectile_type, posX, posY, 2, new AABBComponent()));
+			gm.addObject(ProjectileManager.getProjectile(this.projectile_type, posX, posY, 2, ComponentManager.getComponent(projectile_comp_type)));
 			//gm.addObject(new Bullet(tileX, tileY, offX + width / 2, offY + height / 2,  2, new AABBComponent()));
 		}
 		if(gc.getInput().isKeyDown(KeyEvent.VK_LEFT))
 		{
-			gm.addObject(ProjectileManager.getProjectile(this.projectile_type, posX, posY, 3, new AABBComponent()));
+			gm.addObject(ProjectileManager.getProjectile(this.projectile_type, posX, posY, 3, ComponentManager.getComponent(projectile_comp_type)));
 			//gm.addObject(new Bullet(tileX, tileY, offX + width / 2, offY + height / 2, 3, new AABBComponent()));
 		}
 		

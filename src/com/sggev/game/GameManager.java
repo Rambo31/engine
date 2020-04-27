@@ -12,6 +12,7 @@ import com.sggev.engine.gfx.ImageTile;
 import com.sggev.engine.gfx.Light;
 import com.sggev.game.components.AABBComponent;
 import com.sggev.game.components.CircleComponent;
+import com.sggev.game.components.ComponentManager;
 import com.sggev.game.objects.GameObject;
 import com.sggev.game.objects.PBParticle;
 import com.sggev.game.objects.Platform;
@@ -45,7 +46,7 @@ public class GameManager extends AbstractGame {
 	
 	
 	public GameManager() {
-		objects.add(new Player(4, 4, new AABBComponent(), ProjectileManager.ProjectileType.Bullet));
+		objects.add(new Player(4, 4, ComponentManager.getComponent(ComponentManager.ComponentType.AABB), ProjectileManager.ProjectileType.Bullet, ComponentManager.ComponentType.AABB));
 		
 	
 		
