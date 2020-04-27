@@ -9,12 +9,16 @@ import com.sggev.game.components.Component;
 
 public abstract class GameObject {
 
-	protected String tag;
-	protected double posX, posY;
-	protected double deltaPosX, deltaPosY;
-	protected int width, height;
-	protected int radius;
-	protected int padding, paddingTop;
+	protected String tag = "";
+	protected double posX = 0;
+	protected double posY = 0;
+	protected double deltaPosX = 0;
+	protected double deltaPosY = 0;
+	protected int width = 0;
+	protected int height = 0;
+	protected int radius =  0;
+	protected int padding = 0;
+	protected int paddingTop = 0;
 	protected boolean dead = false;
 	
 	protected ArrayList<Component> components = new ArrayList<Component>(); 
@@ -75,6 +79,19 @@ public abstract class GameObject {
 		
 		return null;
 	}
+	
+	public Component getFComponent()
+	{
+		if(!components.isEmpty()) 
+		{
+			return components.get(0);
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
 	
 	public void push(double deltaX, double deltaY)
 	{

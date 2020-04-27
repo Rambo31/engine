@@ -130,34 +130,46 @@ public class PBParticle extends GameObject {
 		if(other.getTag().equalsIgnoreCase("pbparticle"))
 		{
 
+			//определение компонент
+			//CircleComponent myC = (CircleComponent) this.findComponent("circle");
+			//CircleComponent otherC = (CircleComponent) other.findComponent("circle");
 			
-			CircleComponent myC = (CircleComponent) this.findComponent("circle");
-			CircleComponent otherC = (CircleComponent) other.findComponent("circle");
+			Component myC = this.getFComponent();
+			Component otherC = other.getFComponent();
+			
 			
 			double penDepth;
 			double penDirX, penDirY;
-			double dlen = Math.pow(myC.getPosX() - otherC.getPosX(), 2) + Math.pow(myC.getPosY() - otherC.getPosY(), 2); 
+			double dlen = Math.pow(this.getPosX() - other.getPosX(), 2) + Math.pow(this.getPosY() - other.getPosY(), 2); 
 			double len = Math.pow(dlen, 0.5);
 			
-			penDirX =  (otherC.getPosX() - myC.getPosX()) / len;
-			penDirY =  (otherC.getPosY() - myC.getPosY()) / len;
 			
+			//определение направления проникновения
+			penDirX =  (other.getPosX() - this.getPosX()) / len;
+			penDirY =  (other.getPosY() - this.getPosY()) / len;
 			
-			penDepth = myC.getRadius() + otherC.getRadius() - len;
+			int R1, R2;
+			
+			R1 = (int) (this.getRadius() > 0 ? this.getRadius() : Math.sqrt(Math.pow(this.getHeight(), 2) + Math.pow(this.getWidth(), 2)));
+			R2 = (int) (other.getRadius() > 0 ? other.getRadius() : Math.sqrt(Math.pow(other.getHeight(), 2) + Math.pow(other.getWidth(), 2)));
+
+			
+			//определение глубины проникновения
+			penDepth = R1 + R2 - len;
 			
 			
 			this.push(- penDirX * penDepth * 0.5, - penDirY * penDepth * 0.5);
 			
 			
-			((PBParticle)other).push(penDirX * penDepth * 0.5, penDirY * penDepth * 0.5);
+			other.push(penDirX * penDepth * 0.5, penDirY * penDepth * 0.5);
 			
 			double bounce = 0;
 			
 			
 			double relVelX, relVelY;
 			
-			relVelX = this.getDeltaPosX() - ((PBParticle)other).getDeltaPosX();
-			relVelY = this.getDeltaPosY() - ((PBParticle)other).getDeltaPosY();
+			relVelX = this.getDeltaPosX() - other.getDeltaPosX();
+			relVelY = this.getDeltaPosY() - other.getDeltaPosY();
 			
 			
 			double exVel;
@@ -171,8 +183,8 @@ public class PBParticle extends GameObject {
 				
 				
 				
-				((PBParticle)other).setDeltaPosX(((PBParticle)other).getDeltaPosX() - penDirX * exVel * 0.5);
-				((PBParticle)other).setDeltaPosY(((PBParticle)other).getDeltaPosY() - penDirY * exVel * 0.5);
+				other.setDeltaPosX(other.getDeltaPosX() - penDirX * exVel * 0.5);
+				other.setDeltaPosY(other.getDeltaPosY() - penDirY * exVel * 0.5);
 			}
 			
 		}

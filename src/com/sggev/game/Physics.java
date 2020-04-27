@@ -90,7 +90,7 @@ public class Physics {
 			} 
 		}
 
-		
+		/*
 		for(int i = 0; i < circleList.size(); i++)
 		{
 			for(int j = i + 1; j < circleList.size(); j++)
@@ -148,7 +148,7 @@ public class Physics {
 				
 				
 			}
-		}
+		}*/
 		
 		//check for collision ball and box
 		for(int i = 0; i < aabbList.size(); i++)
