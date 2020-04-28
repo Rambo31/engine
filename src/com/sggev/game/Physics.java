@@ -17,7 +17,7 @@ public class Physics {
 	
 	private static PLink[] linkList;
 	
-	enum Direction{UP, DOWN, LEFT, RIGHT};
+	public enum Direction{UP, DOWN, LEFT, RIGHT};
 	
 	public static void addAABBComponent(AABBComponent aabb)
 	{
@@ -67,12 +67,8 @@ public class Physics {
 				//Collision detection code
 				double dlen = Math.pow(c0.getPosX() - c1.getPosX(), 2) + Math.pow(c0.getPosY() - c1.getPosY(), 2); 
 				
-				
 				if(dlen < Math.pow(c0.getRadius() + c1.getRadius(), 2))
-				{
-
-					
-					
+				{	
 					c0.getParent().collision(c1.getParent());
 				}
 				
@@ -92,18 +88,12 @@ public class Physics {
 			{
 				linkList = new PLink[circleList.size() * circleList.size()];
 				
-				for(PLink l: linkList)
-				{
-					l = null;
-				}
-				
 				System.out.println("massive init");
 				
 			}
 			else if(circleListPrevSize - circleList.size() != 0)
 			{
 				linkList = Arrays.copyOf(linkList, circleList.size()*circleList.size());
-				
 				
 				
 				System.out.println("massive reinit: " + Math.abs(circleListPrevSize - circleList.size()));
@@ -155,7 +145,7 @@ public class Physics {
 					//если св€зи нет , то создаем
 					if(linkList[i + j * circleList.size()] == null)
 					{
-						//System.out.println("no link");
+						System.out.println("no link");
 					
 						//добавл€ем св€зь в массив св€зей
 						
@@ -165,7 +155,7 @@ public class Physics {
 					}
 					else 
 					{
-						//System.out.println("link exists");
+						System.out.println("link exists");
 					}
 					
 					
@@ -279,119 +269,8 @@ public class Physics {
 				//collision resolution condition
 				if(len < c1.getRadius() )
 				{
-					System.out.println("Circle AABB collision");
-					System.out.println("difX: " + difX + " difY: " + difY);
-					
-					
-					
-					//extract direction
-					
-					Direction dir;
-					
-					if(Math.abs(difX) > Math.abs(difY))
-					{
-						if(Math.signum(difX) > 0)
-						{
-							dir = Physics.Direction.RIGHT;
-							System.out.println("RIGHT");
-						}
-						else
-						{
-							dir = Physics.Direction.LEFT;
-							System.out.println("LEFT");
-						}
-					}
-					else
-					{
-						if(Math.signum(difY) > 0)
-						{
-							dir = Physics.Direction.DOWN;
-							System.out.println("DOWN");
-						}
-						else
-						{
-							dir = Physics.Direction.UP;
-							
-							System.out.println("UP");
-						}
-					}
-					
-					
-					
-					double penDepth, penDirX, penDirY;
-					
-					
-					
-					//test for horizontal collision
-					
-					
-					if(dir == Physics.Direction.LEFT || dir == Physics.Direction.RIGHT)
-					{
-						
-						//relocate
-								
-						penDepth = c1.getRadius() - Math.abs(difX);
-						
-						if(dir == Physics.Direction.LEFT)
-						{
-							
-							//move to the right
-							
-							((PBParticle)c1.getParent()).setPosX(c1.getPosX() + penDepth);
-						}
-						else
-						{
-							
-							//move to the left
-							
-							((PBParticle)c1.getParent()).setPosX(c1.getPosX() - penDepth);
-						}
-						
-						
-						//reverse velocity and acceleration
-						
-						
-						((PBParticle)c1.getParent()).setDeltaPosX(-((PBParticle)c1.getParent()).getDeltaPosX());
-						
-						
-						((PBParticle)c1.getParent()).setAccelerationX(-((PBParticle)c1.getParent()).getAccelerationX());
-						
-						
-
-					}else  //test for verticle collision
-					{
-						//relocate
-						
-						penDepth = c1.getRadius() - Math.abs(difY);
-						
-						if(dir == Physics.Direction.DOWN)
-						{
-							
-							//move up
-							
-							((PBParticle)c1.getParent()).setPosY(c1.getPosY() - penDepth);
-						}
-						else
-						{
-							
-							//move down
-							
-							((PBParticle)c1.getParent()).setPosY(c1.getPosY() + penDepth);
-						}
-						
-						
-						
-						//reverse velocity and acceleration
-						
-						
-						((PBParticle)c1.getParent()).setDeltaPosY(-((PBParticle)c1.getParent()).getDeltaPosY());
-						
-						
-						((PBParticle)c1.getParent()).setAccelerationY(-((PBParticle)c1.getParent()).getAccelerationY());
-						
-						
-					}
-					
+					c1.getParent().collision(a0.getParent(), difX, difY);
+					a0.getParent().collision(c1.getParent(), difX, difY);					
 				}
 			}
 		}

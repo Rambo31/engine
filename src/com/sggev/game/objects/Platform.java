@@ -48,9 +48,17 @@ public class Platform extends GameObject {
 	}
 
 	@Override
-	public void collision(GameObject other) {
+	public void collision(GameObject other, double ... morevals) {
 
+		
 		color = (int) (Math.random() * Integer.MAX_VALUE);
+		
+		
+		if(other.getTag().equalsIgnoreCase("pbparticle"))
+		{
+			//some code
+		}
+		
 	}
 
 }

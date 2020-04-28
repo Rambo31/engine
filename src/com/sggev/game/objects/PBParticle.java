@@ -3,6 +3,8 @@ package com.sggev.game.objects;
 import com.sggev.engine.GameContainer;
 import com.sggev.engine.Renderer;
 import com.sggev.game.GameManager;
+import com.sggev.game.Physics;
+import com.sggev.game.Physics.Direction;
 import com.sggev.game.components.AABBComponent;
 import com.sggev.game.components.CircleComponent;
 import com.sggev.game.components.Component;
@@ -123,7 +125,7 @@ public class PBParticle extends GameObject {
 	}
 
 	@Override
-	public void collision(GameObject other) {
+	public void collision(GameObject other, double ... morevals) {
 		//event on collision
 		
 		//проверка по тегу
@@ -186,6 +188,133 @@ public class PBParticle extends GameObject {
 				other.setDeltaPosX(other.getDeltaPosX() - penDirX * exVel * 0.5);
 				other.setDeltaPosY(other.getDeltaPosY() - penDirY * exVel * 0.5);
 			}
+			
+		}
+		else if(other.getTag().equalsIgnoreCase("platform") || other.getTag().equalsIgnoreCase("player"))
+		{
+			
+			//collision resolve beginning
+			//what needs to be given to resolve collision
+			//difX, difY
+			
+			double difX = morevals[0];
+			double difY = morevals[1];
+					
+			CircleComponent c1 = (CircleComponent) this.findComponent("circle");
+			
+			System.out.println("Circle AABB collision");
+			System.out.println("difX: " + difX + " difY: " + difY);
+			
+			
+			
+			//extract direction
+			
+			Physics.Direction dir;
+			
+			if(Math.abs(difX) > Math.abs(difY))
+			{
+				if(Math.signum(difX) > 0)
+				{
+					dir = Physics.Direction.RIGHT;
+					System.out.println("RIGHT");
+				}
+				else
+				{
+					dir = Physics.Direction.LEFT;
+					System.out.println("LEFT");
+				}
+			}
+			else
+			{
+				if(Math.signum(difY) > 0)
+				{
+					dir = Physics.Direction.DOWN;
+					System.out.println("DOWN");
+				}
+				else
+				{
+					dir = Physics.Direction.UP;
+					
+					System.out.println("UP");
+				}
+			}
+			
+			
+			
+			double penDepth, penDirX, penDirY;
+			
+			
+			
+			//test for horizontal collision
+			
+			
+			if(dir == Physics.Direction.LEFT || dir == Physics.Direction.RIGHT)
+			{
+				
+				//relocate
+						
+				penDepth = c1.getRadius() - Math.abs(difX);
+				
+				if(dir == Physics.Direction.LEFT)
+				{
+					
+					//move to the right
+					
+					((PBParticle)c1.getParent()).setPosX(c1.getPosX() + penDepth);
+				}
+				else
+				{
+					
+					//move to the left
+					
+					((PBParticle)c1.getParent()).setPosX(c1.getPosX() - penDepth);
+				}
+				
+				
+				//reverse velocity and acceleration
+				
+				
+				((PBParticle)c1.getParent()).setDeltaPosX(-((PBParticle)c1.getParent()).getDeltaPosX());
+				
+				
+				((PBParticle)c1.getParent()).setAccelerationX(-((PBParticle)c1.getParent()).getAccelerationX());
+				
+				
+
+			}else  //test for verticle collision
+			{
+				//relocate
+				
+				penDepth = c1.getRadius() - Math.abs(difY);
+				
+				if(dir == Physics.Direction.DOWN)
+				{
+					
+					//move up
+					
+					((PBParticle)c1.getParent()).setPosY(c1.getPosY() - penDepth);
+				}
+				else
+				{
+					
+					//move down
+					
+					((PBParticle)c1.getParent()).setPosY(c1.getPosY() + penDepth);
+				}
+				
+				
+				
+				//reverse velocity and acceleration
+				
+				
+				((PBParticle)c1.getParent()).setDeltaPosY(-((PBParticle)c1.getParent()).getDeltaPosY());
+				
+				
+				((PBParticle)c1.getParent()).setAccelerationY(-((PBParticle)c1.getParent()).getAccelerationY());
+				
+				
+			}
+			//collision resolve ending
 			
 		}
 

@@ -25,7 +25,7 @@ public abstract class GameObject {
 	
 	public abstract void update(GameContainer gc, GameManager gm, float dt);
 	public abstract void render(GameContainer gc, Renderer r);
-	public abstract void collision(GameObject other);
+	public abstract void collision(GameObject other, double ... morevals);
 	
 	public GameObject(Component c)
 	{

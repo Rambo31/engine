@@ -270,7 +270,7 @@ public class Player extends GameObject {
 	}
 
 	@Override
-	public void collision(GameObject other) {
+	public void collision(GameObject other, double ... morevals) {
 
 		
 		
