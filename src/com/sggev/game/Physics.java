@@ -1,6 +1,7 @@
 package com.sggev.game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.sggev.game.components.AABBComponent;
 import com.sggev.game.components.CircleComponent;
@@ -11,7 +12,7 @@ public class Physics {
 	
 	private static ArrayList<AABBComponent> aabbList = new ArrayList<AABBComponent>();
 	private static ArrayList<CircleComponent> circleList = new ArrayList<CircleComponent>();
-	
+	private static int circleListPrevSize = 0;
 	
 	
 	private static PLink[] linkList;
@@ -28,6 +29,8 @@ public class Physics {
 	{
 		circleList.add(circle);
 	}
+	
+
 	
 	public static void update()
 	{
@@ -76,21 +79,44 @@ public class Physics {
 			}
 			
 		}
+		//что значит нескольких раздельных жидкостей??
+		//проблема в том, что если появляются новые частицы, то для их связей нет места в таблице связей
+		
 		
 		
 		//если потребуется создание нескольких раздельных жидкостей
 		//надо модифицировать этот код
 		
-		if(linkList == null)
 		{
-			linkList = new PLink[circleList.size() * circleList.size()];
-			for(PLink l: linkList)
+			if(circleListPrevSize == 0)
 			{
-				l = null;
-			} 
+				linkList = new PLink[circleList.size() * circleList.size()];
+				
+				for(PLink l: linkList)
+				{
+					l = null;
+				}
+				
+				System.out.println("massive init");
+				
+			}
+			else if(circleListPrevSize - circleList.size() != 0)
+			{
+				linkList = Arrays.copyOf(linkList, circleList.size()*circleList.size());
+				
+				
+				
+				System.out.println("massive reinit: " + Math.abs(circleListPrevSize - circleList.size()));
+			}
+			
+			
+			circleListPrevSize = circleList.size();
 		}
 
-		/*
+		
+		
+		
+		
 		for(int i = 0; i < circleList.size(); i++)
 		{
 			for(int j = i + 1; j < circleList.size(); j++)
@@ -148,7 +174,7 @@ public class Physics {
 				
 				
 			}
-		}*/
+		}
 		
 		//check for collision ball and box
 		for(int i = 0; i < aabbList.size(); i++)

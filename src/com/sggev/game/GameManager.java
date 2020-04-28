@@ -171,7 +171,10 @@ public class GameManager extends AbstractGame {
 		}
 		
 
-		
+		if(gc.getInput().isKeyDown(KeyEvent.VK_R))
+		{
+			objects.get(objects.size() - 1).setDead(true);
+		}
 
 		
 		//мусор

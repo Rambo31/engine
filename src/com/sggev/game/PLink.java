@@ -12,6 +12,14 @@ public class PLink {
 	private GameObject p1;
 	private GameObject p2;
 	
+	public PLink()
+	{
+		this.defLen = 0;
+		this.stiffness = 0;
+		this.p1 = null;
+		this.p2 = null;
+	}
+	
 	
 	public PLink(GameObject p1, GameObject p2, double defLen, double stiffness)
 	{
